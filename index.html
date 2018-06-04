@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Scheduler</title>
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"><!--=================================================-->
+	<link href="assets/css/addTask.css" rel="stylesheet">
+	<link href="assets/css/teststyle.css" rel="stylesheet">
+	<link href="assets/css/empForm1.css" rel="stylesheet">
+	<script src="assets/js/jquery.js">
+	</script>
+	<script src="assets/js/addEmp.js">
+	</script>
+	<script src="assets/js/addTask.js">
+	</script>
+	<script src="assets/js/javascript.js">
+	</script>
+	<script src="assets/js/displayTask.js">
+	</script>
+	<script src="assets/js/removeTask.js">
+	</script>
+	<script src="assets/js/removeEmp.js">
+	</script>
+	<script src="assets/js/editEmp.js">
+	</script>
+	<script src="assets/js/removeTaskTime.js"></script>
+
+</head>
+<body >
+	<div id="mainContainer">
+		<div id="topContainer">
+			<div id="navBarContainer">
+				<nav class="navBar">
+					<span class="logo" role="link" tabindex="0"><img src="assets\images\icons\healthplanservicelogo.jpg"></span>
+					<div class="group">
+						<div class="navItem">
+							<span class="navItemLink" onclick="document.getElementById('addEmployee').style.display='inline-block'" role="link" tabindex="0">Add Employee</span>
+						</div>
+						<div class="navItem">
+							<span class="navItemLink" onclick="document.getElementById('addTask').style.display='inline-block'" role="link" tabindex="0">Add Task</span>
+						</div>
+						<div class="navItem">
+							<span class="navItemLink" onclick="document.getElementById('removeTask').style.display='inline-block'" role="link" tabindex="0">Remove Task</span>
+						</div>
+						<div class="navItem">
+							<span class="navItemLink" onclick="document.getElementById('editEmp').style.display='inline-block'" role="link" tabindex="0">Edit Employee</span>
+						</div>
+						<div class="navItem">
+							<span class="navItemLink" onclick="document.getElementById('removeEmp').style.display='inline-block'" role="link" tabindex="0">Remove Employee</span>
+						</div>
+
+					</div>
+				</nav>
+			</div>
+			<div id="mainViewContainer">
+				<div id="mainContent">
+					<div class="gridViewContainer">
+						<h2 align="center" style = color:white>Scheduling Calendar</h2>
+						<script>
+	           //    var sysDate = new Date();
+	           //    var sysDay = new Date();
+	           //    var sysMonth = new Date();
+	           //    var dayCount = sysDay.getDay();
+	           //    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	           //    let employee;
+	           //    let typeofKey;
+	           //    let empArry = [];
+	           //    let x = 1;
+	           //    let y = 0;
+	           //    let trInc= 0;
+	           //    var drawTable = '<table id = wholeTable>';
+	           //    drawTable += "<thead>";
+	           //    drawTable += "<tr>";
+	           //    drawTable += "<th>Employee Name<\/th>";
+	           //    let today = new Date();
+	           //    let dd = today.getDate();
+	           //    let mm = today.getMonth()+1; //January is 0!
+	           //    let mmN = mm;
+	           //    let yyyy = today.getFullYear();
+	           //    let oneWeekAhead = new Date();
+	           //    let nextWeek = (today.getDate()+10) + 10;
+							// 	/* If next week falls into the next month, print correctly */
+	           //    if (nextWeek > 30 && (mmN == 9 || mmN == 4 || mmN == 6 || mmN == 11)) {
+	           //      mmN++;
+	           //      nextWeek -= 30;
+	           //    }
+	           //    else if (nextWeek > 31 && (mmN == 1 || mmN == 3 || mmN == 5 || mmN == 7 || mmN == 8 || mmN == 10 || mmN == 12)) {
+	           //      mmN++;
+	           //      nextWeek -= 31;
+	           //    }
+	           //    else if (nextWeek > 28 && mmN == 2) {
+	           //      mmN++;
+	           //      nextWeek -= 28;
+	           //    }
+							// 	/* Formatting of the dates at the top of the table */
+	           //    if(dd < 10) {
+	           //      dd = '0'+ dd;
+	           //    }
+	           //    if(nextWeek < 10) {
+	           //      nextWeek = '0' + nextWeek;
+	           //    }
+	           //    if(mmN < 10) {
+	           //        mmN = '0' + mmN
+	           //    }
+	           //    if(mm < 10) {
+	           //      mm = '0' + mm;
+	           //    }
+	           //    let edate = yyyy + mmN + nextWeek;
+	           //    /* Finds the logged earliest and latest dates */
+	           //    let startDate1  = yyyy.toString() +  mm.toString() + dd.toString();
+	           //    let startDate = parseInt(startDate1);
+	           //    let endDate = parseInt(edate);
+	           //    let startDateN = 20180501;
+	           //    let endDateN = 20180531;
+							// 	/* Change the strings of dates to ints for calculation of start and end date of the table */
+	           //    if( localStorage.length > 0){
+	           //    for (var key in localStorage) {
+	           //      typeofKey = (typeof localStorage[key]);
+	           //      if (typeofKey == 'string' || typeofKey instanceof String ){
+	           //        emp1 = JSON.parse(localStorage.getItem(key));
+	           //        if ("Task" in emp1) {
+	           //          for (let i = 0; i < emp1.Task.length; i++) {
+	           //            startDateN = parseInt(emp1.Task[i]['Task Start Date'].substr(0,4) + emp1.Task[i]['Task Start Date'].substr(5,2) + emp1.Task[i]['Task Start Date'].substr(8,2));
+	           //            endDateN = parseInt(emp1.Task[i]['Task End Date'].substr(0,4) + emp1.Task[i]['Task End Date'].substr(5,2) + emp1.Task[i]['Task End Date'].substr(8,2));
+	           //            if(endDateN > endDate) {
+	           //              endDate = endDateN;
+	           //            }
+	           //            if(startDateN < startDate) {
+	           //              startDate = startDateN;
+	           //            }
+	           //          }
+	           //        }
+	           //      }
+	           //    }
+	           //  }
+	           //    let numStr = null;
+	           //    let numStrDay = null;
+	           //    let finalDay = null;
+	           //    let finalDayF = null;
+	           //    let colCount = 0;
+							// 	/* Correctly print the months and days at the top of the table */
+	           //    for (let i = startDate; i <= endDate +1; i++) {
+	           //      numStr = (i.toString()).substr(4,2);
+	           //      numStrDay = (i.toString()).substr(6,2);
+	           //      if(numStr == '09' || numStr == '04' || numStr == '06' || numStr == '11') {
+	           //        if(numStrDay == '31') {
+	           //          i += 69;
+	           //        }
+	           //        else {
+	           //          finalDay = i.toString()
+	           //          finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+	           //          drawTable += "<th class = days id = days" + x + '-' + y + ">" + finalDayF + "</th>";
+	           //          colCount++;
+	           //        }
+	           //      }
+	           //      else if(numStr == '01' || numStr == '03' || numStr == '05' || numStr == '07' || numStr == '08' || numStr == '10' || numStr == '12') {
+	           //        if(numStrDay == '32') {
+	           //          i += 68;
+	           //        }
+	           //        else {
+	           //          finalDay = i.toString()
+	           //          finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+	           //          drawTable += "<th class = days id = days" + x + '-' + y + ">" + finalDayF + "</th>";
+	           //          colCount++;
+	           //        }
+	           //      }
+	           //      else if(numStr == '02') {
+	           //        if(numStrDay == '29') {
+	           //          i += 71;
+	           //        }
+	           //        else {
+	           //          finalDay = i.toString()
+	           //          finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+	           //          drawTable += "<th class = days id = days" + x + '-' + y + ">" + finalDayF + "</th>";
+	           //          colCount++;
+	           //        }
+	           //      }
+	           //      else {
+	           //        finalDay = i.toString()
+	           //        finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+	           //        drawTable += "<th class = days id = days" + x + '-' + y + ">" + finalDayF + "</th>";
+	           //        colCount++;
+	           //      }
+	           //      x++;
+	           //    }
+	           //    drawTable += "</tr>";
+	           //    drawTable += "</thead>";
+	           //    drawTable += '<tbody class="dragscroll">';
+	           //    drawTable += "<tr id =" + trInc + ">";
+	           //    trInc++;
+	           //    //counters for the employee and date rows/col
+	           //    x=0;
+	           //    y=1;
+	           //    // counter for the main table
+	           //    let z =1;
+	           //    for (var key in localStorage) {
+	           //      typeofKey = (typeof localStorage[key]);
+	           //      //cols of the employee names
+	           //      if(typeofKey == 'string' || typeofKey instanceof String ){
+	           //        employee = JSON.parse(localStorage.getItem(key));
+	           //        drawTable += "<td class = employ id =emp" + x + '-' + y + ">" + employee['Employee Name'] + "</td>";
+	           //        // rows and cols of the main table and date
+	           //        for (let j = 0; j < colCount; j++) {
+	           //          drawTable += "<td class =" + z + '-' + y + "></td>";
+	           //          z++;
+	           //        }
+	           //        // set z to one to start the main tables x at 1 for off by one error
+	           //        z=1;
+	           //        //reset x for each row
+	           //        x=0;
+	           //      drawTable += '</tr>';
+	           //      y++;
+	           //    }
+	           //  }
+	           // drawTable += '<tr>';
+	           // var noRows = 14 - localStorage.length;
+	           //  for(; noRows >= 0; noRows--){
+	           //    drawTable += "<td class = employ id =emp" + x + '-' + y + ">" + "" + "</td>";
+	           //    // rows and cols of the main table and date
+	           //    for (let j = 0; j < colCount; j++) {
+	           //      drawTable += "<td class =" + z + '-' + y + "></td>";
+	           //      z++;
+	           //    }
+	           //    // set z to one to start the main tables x at 1 for off by one error
+	           //    z=1;
+	           //    //reset x for each row
+	           //    x=0;
+	           //  drawTable += '</tr>';
+	           //  y++;
+	           //  }
+	           //  drawTable += "</tbody>";
+	           //  drawTable += "</table>";
+	           //  document.write(drawTable);
+				     /* Necessary variables */
+				     let overDiv = null;     // Overall Calendar Container
+				     let divRowHead = null   // Header row for dates
+				     let divRow = null;      // Div for each row
+				     let divHead = null;     // Div for each date in the header
+				     let divCell = null;     // Div for each table cell
+						 let x = 1;
+	           let y = 0;
+						 let z = 1;
+						 let colCount = 0;
+						 let empArry = [];
+
+				     /* Create the overall div container for the calendar */
+				     overDiv = document.createElement("div");
+				     overDiv.id = "Overall Table"
+				     overDiv.setAttribute("class", "dTable");
+				     document.getElementById("mainContent").appendChild(overDiv);
+
+						 /* Get today's date */
+					   let today = new Date();
+	           let dd = today.getDate();
+	           let mm = today.getMonth()+1; //January is 0!
+						 let mmN = mm;
+						 let yyyy = today.getFullYear();
+						 let nextWeek = (today.getDate()+10) + 10;
+				     if (nextWeek > 30 && (mmN == 9 || mmN == 4 || mmN == 6 || mmN == 11)) {
+               mmN++;
+               nextWeek -= 30;
+             }
+             else if (nextWeek > 31 && (mmN == 1 || mmN == 3 || mmN == 5 || mmN == 7 || mmN == 8 || mmN == 10 || mmN == 12)) {
+               mmN++;
+               nextWeek -= 31;
+             }
+             else if (nextWeek > 28 && mmN == 2) {
+               mmN++;
+               nextWeek -= 28;
+             }
+			 			/* Formatting of the dates at the top of the table */
+             if(dd < 10) {
+               dd = '0'+ dd;
+             }
+             if(nextWeek < 10) {
+               nextWeek = '0' + nextWeek;
+             }
+             if(mmN < 10) {
+                 mmN = '0' + mmN
+             }
+             if(mm < 10) {
+               mm = '0' + mm;
+             }
+			 		   let edate = yyyy + mmN + nextWeek;
+	           /* Finds the logged earliest and latest dates */
+	           let startDate1  = yyyy.toString() +  mm.toString() + dd.toString();
+	           let startDate = parseInt(startDate1);
+	           let endDate = parseInt(edate);
+	           let startDateN = 20180501;
+	           let endDateN = 20180531;
+						/* Change the strings of dates to ints for calculation of start and end date of the table */
+	           if( localStorage.length > 0) {
+	           	for (var key in localStorage) {
+	             	typeofKey = (typeof localStorage[key]);
+	             	if (typeofKey == 'string' || typeofKey instanceof String ){
+	               	emp1 = JSON.parse(localStorage.getItem(key));
+	               	if ("Task" in emp1) {
+	                 	for (let i = 0; i < emp1.Task.length; i++) {
+	                   	startDateN = parseInt(emp1.Task[i]['Task Start Date'].substr(0,4) + emp1.Task[i]['Task Start Date'].substr(5,2) + emp1.Task[i]['Task Start Date'].substr(8,2));
+	                   	endDateN = parseInt(emp1.Task[i]['Task End Date'].substr(0,4) + emp1.Task[i]['Task End Date'].substr(5,2) + emp1.Task[i]['Task End Date'].substr(8,2));
+	                   	if(endDateN > endDate) {
+	                     	endDate = endDateN;
+	                   	}
+	                   	if(startDateN < startDate) {
+	                     	startDate = startDateN;
+	                   	}
+	                  }
+	                 }
+	             	 }
+	           	 }
+					 	 }
+						 console.log(startDate + "->" + endDate);
+
+				     /* Create the first row to hold the dates */
+				     divRowHead = document.createElement("div");
+				     divRowHead.id = "Date Row";
+				     divRowHead.setAttribute("class", "dTableRow");
+				     divRowHead.innerHTML += "Employee Name";
+				     document.getElementsByClassName("dTable")[0].appendChild(divRowHead);
+
+				     /* Add date divs to the header */
+				     for(let i = startDate; i <= endDate +1; i++) {
+				       divHead = document.createElement("div");
+				       numStr = (i.toString()).substr(4,2);
+               numStrDay = (i.toString()).substr(6,2);
+               if(numStr == '09' || numStr == '04' || numStr == '06' || numStr == '11') {
+               	if(numStrDay == '31') {
+                 	i += 69;
+               	}
+              	else {
+                	finalDay = i.toString()
+                	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+									divHead.setAttribute("class", "dTableDates days")
+									divHead.id = x + '-' + y;endDate
+                	divHead.innerHTML += finalDayF;
+                	colCount++;
+              	}
+              }
+              else if(numStr == '01' || numStr == '03' || numStr == '05' || numStr == '07' || numStr == '08' || numStr == '10' || numStr == '12') {
+              	if(numStrDay == '32') {
+                	i += 68;
+              	}
+              	else {
+                	finalDay = i.toString()
+                	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+									divHead.setAttribute("class", "dTableDates days")
+									divHead.id = x + '-' + y;
+                	divHead.innerHTML += finalDayF;
+                	colCount++;
+              	}
+              }
+              else if(numStr == '02') {
+              	if(numStrDay == '29') {
+                	i += 71;
+              	}
+              	else {
+                	finalDay = i.toString()
+                	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+									divHead.setAttribute("class", "dTableDates days")
+									divHead.id = x + '-' + y;
+                	divHead.innerHTML += finalDayF;
+                	colCount++;
+              	}
+              }
+              else {
+              	finalDay = i.toString()
+              	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
+								divHead.setAttribute("class", "dTableDates days")
+								divHead.id = x + '-' + y;
+								divHead.innerHTML += finalDayF;
+              	colCount++;
+              }
+              	x++;
+								document.getElementById("Date Row").appendChild(divHead);
+							}
+
+				     /* Create the following rows with the employee names and empty cells for tasks */
+				     for(var key in localStorage) {
+				       divRow = document.createElement("div");
+							 typeofKey = (typeof localStorage[key]);
+               if(typeofKey == 'string' || typeofKey instanceof String ) {
+                 employee = JSON.parse(localStorage.getItem(key));
+								 divRow.setAttribute("class", "dTableRow");
+								 divRow.id = "emp" + x + '-' + y;
+								 document.getElementById("Overall Table").appendChild(divRow);
+								 divCell = document.createElement("div");
+								 divCell.setAttribute("class", "dTableEmps employ");
+								 divCell.innerHTML += employee["Employee Name"];
+								 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
+                 for (let j = 0; j < colCount; j++) {
+									 divCell = document.createElement("div");
+									 divCell.setAttribute("class", "dTableCell");
+									 divCell.id = z + '-' + y;
+									 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
+                   z++;
+                 }
+                 z=1;
+                 x=0;
+              	 y++;
+               	}
+						  }
+						</script>
+						<div class="modal" id="addEmployee" >
+							<!--form addEmployee-->
+							<div id="task-messages">
+								<form accept-charset="UTF-8" class="modal-content animate" id="" method="post" name="empForm" onsubmit="return create_employee(this);">
+									<div class="container">
+										<div class="col-md-4 col-md-offset-4 col-sm-7 col-sm-offset-2" style="margin-top:40px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="panel-title">
+														<strong>Add Employee</strong>
+														<div class="pull-right">
+															<div style="margin-top: -6px"></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-body" style="padding-top:25px">
+													<div class="labelinputclass" id="labelinputc">
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empName">Employee Name:</label> <input class="form-control" name="empName" required="" type="text">
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empId">Employee Tag:</label> <input class="form-control" name="empId" required="" type="text">
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empId">Employee Color:</label> <input class="form-control" name="empColor" required="" type="color">
+															</div>
+														</div>
+													</div><br>
+													<div id="buttonget">
+														<div style="float: left;">
+															<button class="btn btn-success" id="submitbtn" type="submit">Submit</button>
+														</div>
+														<div style="float: right;">
+															<button class="btn btn-danger" onclick="document.getElementById('addEmployee').style.display='none'" type="button">Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="modal" id="addTask">
+							<!--form addTask-->
+							<div id="task-messages">
+								<form accept-charset="UTF-8" class="modal-content animate" id="taskForm" method="post" name="taskForm" onsubmit="return submit_json(this);">
+									<div class="container">
+										<div class="col-md-4 col-md-offset-4 col-sm-7 col-sm-offset-2" style="margin-top:30px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="panel-title">
+														<strong>Add Task</strong>
+														<div class="pull-right">
+															<div style="margin-top: -6px"></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-body" style="padding-top:15px">
+													<div class="labelinputclass" id="labelinputc">
+														<div class="row">
+															<div class="marginlsi">
+																<label for="emplName">Employee:</label> <select class="form-control" id="empDropDown" name="emplName">
+																</select>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="tskname">Task Name:</label> <input class="form-control" name="tskname" required="" type="text">
+															</div>
+														</div>
+														<div class="datefields">
+															<div class="field-wrap1">
+																<div class="row">
+																	<div class="" style="float: left;">
+																		<label for="=tskstart">Start Date:</label> <input class="form-control" name="tskstart" required="" type="date">
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="" style="float: right;">
+																		<label for="tskend">End Date:</label> <input class="form-control" name="tskend" required="" type="date">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="tskStatus">Task Status:</label> <input class="form-control" name="tskStatus" required="" type="text">
+															</div>
+														</div>
+													</div><br>
+													<div id="buttonget">
+														<div style="float: left;">
+															<button class="btn btn-success" id="submitbtn" type="submit">Submit</button>
+														</div>
+														<div style="float: right;">
+															<button class="btn btn-danger" onclick="document.getElementById('addTask').style.display='none'" type="button">Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<script>
+                     empArry = [];
+
+                     for (var i = 0; i < localStorage.length; i++){
+                         empArry.push(localStorage.key(i))
+                     }
+
+                     for(let j = 0; j < empArry.length; j++){
+                       employee = JSON.parse(localStorage.getItem(empArry[j]));
+
+                       $("#empDropDown").append("<option >"+ employee["Employee Name"] +"</option>");
+                     }
+									</script>
+								</form>
+							</div>
+						</div>
+
+
+
+						<div class="modal" id="removeTask">
+							<!--remove task-->
+							<div id="task-messages">
+								<form accept-charset="UTF-8" class="modal-content animate" id="" method="post" name="removeTask" onsubmit="return remove_task(this);">
+									<div class="container">
+										<div class="col-md-4 col-md-offset-4 col-sm-7 col-sm-offset-2" style="margin-top:40px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="panel-title">
+														<strong>Remove Task</strong>
+														<div class="pull-right">
+															<div style="margin-top: -6px"></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-body" style="padding-top:25px">
+													<div class="labelinputclass" id="labelinputc">
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empName">Employee:</label> <select class="form-control" id="removeDropDown" name="emplName" onchange="populate()">
+																</select>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empId">Employee task:</label> <select class="form-control" id="taskDropDown" name="emplName">
+																</select>
+															</div>
+														</div>
+													</div><br>
+													<div id="buttonget">
+														<div style="float: left;">
+															<button class="btn btn-success" id="submitbtn" type="submit">Submit</button>
+														</div>
+														<div style="float: right;">
+															<button class="btn btn-danger" onclick="document.getElementById('removeTask').style.display='none'" type="button">Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<script>
+		                   empArry.length = 0;
+                       // push the local storage to an array
+		                   for (let i = 0; i < localStorage.length; i++){
+		                       empArry.push(localStorage.key(i))
+		                   }
+
+                       // loop through all the employees that were pushed to an array in the localStorage
+		                   for(let y = 0; y < empArry.length; y++){
+												  employee = JSON.parse(localStorage.getItem(empArry[y]));
+                      // if employee has a task add task to the task dropdown
+		                   if('Task' in employee && employee.Task[y] != undefined ){
+
+                         // Loop through the employees task and add them for the first employee in the list
+                         for(let taskForEmp = 0; taskForEmp < employee.Task.length; taskForEmp++){
+
+		                     $('#taskDropDown').append("<option >" + employee.Task[taskForEmp]["Task Name"] + "</option>");
+
+                         }
+                         break;
+                       }
+		               }
+
+                      // loop though the empArray and add the employees name to the employee dropdown
+		                   for(j = 0; j < empArry.length; j++){
+		                     employee = JSON.parse(localStorage.getItem(empArry[j]));
+		                     if('Task' in employee && employee.Task.length != 0 ){
+		                       $("#removeDropDown").append("<option >"+ employee["Employee Name"] +"</option>");
+
+		                     }
+		               }
+
+		               function populate(){
+		                   $(taskDropDown).empty();
+		                   for(let k = 0; k < employee.Task.length; k++){
+		                   employee = localStorage.getItem(document.getElementById("removeDropDown").value);
+		                   employee = JSON.parse(employee);
+		                   if('Task' in employee && employee.Task[k] != undefined ){
+		                     $('#taskDropDown').append("<option >" + employee.Task[k]["Task Name"] + "</option>");
+		                 }
+		                 }
+		               }
+									</script>
+								</form>
+							</div>
+						</div><!-- end of remove task div-->
+
+
+						<div class="modal" id="removeEmp">
+							<!--remove emp-->
+							<div id="task-messages">
+								<form accept-charset="UTF-8" class="modal-content animate" id="" method="post" name="removeEmp" onsubmit="return remove_Emp(this);">
+									<div class="container">
+										<div class="col-md-4 col-md-offset-4 col-sm-7 col-sm-offset-2" style="margin-top:40px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="panel-title">
+														<strong>Remove Employee</strong>
+														<div class="pull-right">
+															<div style="margin-top: -6px"></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-body" style="padding-top:25px">
+													<div class="labelinputclass" id="labelinputc">
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empName">Employee:</label> <select class="form-control" id="removeEmpDropDown" name="emplName">
+																</select>
+															</div>
+														</div>
+													</div><br>
+													<div id="buttonget">
+														<div style="float: left;">
+															<button class="btn btn-success" id="submitbtn" type="submit">Submit</button>
+														</div>
+														<div style="float: right;">
+															<button class="btn btn-danger" onclick="document.getElementById('removeEmp').style.display='none'" type="button">Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+							<script>
+                     empArry = [];
+                     for (i = 0; i < localStorage.length; i++){
+                         empArry.push(localStorage.key(i))
+                     }
+
+                     for(j = 0; j < empArry.length; j++){
+
+                       employee = JSON.parse(localStorage.getItem(empArry[j]));
+
+                         $("#removeEmpDropDown").append("<option >"+ employee["Employee Name"] +"</option>");
+
+                  }
+									</script>
+								</form>
+							</div>
+						</div><!--end of remove employee div -->
+
+
+
+						<div class="modal" id="editEmp">
+							<!--Edit employee-->
+							<div id="task-messages">
+								<form accept-charset="UTF-8" class="modal-content animate" id="" method="post" name="editEmp" onsubmit="return edit_Emp(this);">
+									<div class="container">
+										<div class="col-md-4 col-md-offset-4 col-sm-7 col-sm-offset-2" style="margin-top:40px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="panel-title">
+														<strong>Edit Employee</strong>
+														<div class="pull-right">
+															<div style="margin-top: -6px"></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-body" style="padding-top:25px">
+													<div class="labelinputclass" id="labelinputc">
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empName">Employee:</label> <select class="form-control" id="editEmpDropDown" name="emplName" onchange="populateEdit()">
+																</select>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empId">Employee task:</label> <select class="form-control" id="editTaskDropDown" name="emplName">
+																</select>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="tskname">Task Name:</label> <input class="form-control" name="tskname" type="text">
+															</div>
+														</div>
+														<div class="datefields">
+															<div class="field-wrap1">
+																<div class="row">
+																	<div class="" style="float: left;">
+																		<label for="=tskstart">Edit Start Date:</label> <input class="form-control" name="tskstart"  type="date">
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="" style="float: right;">
+																		<label for="tskend">Edit End Date:</label> <input class="form-control" name="tskend" type="date">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="marginlsi">
+																<label for="empId" >Employee Color:</label> <input class="form-control" name="empColor"  type="color" value = "#0000ff" id = "empColor";>
+															</div>
+														</div>
+													</div><br>
+													<div id="buttonget">
+
+														<div style="float: left;">
+															<button class="btn btn-success" id="submitbtn" type="submit">Edit</button>
+														</div>
+
+														<div style="float: left;">
+															<button class="btn btn-danger" onclick="document.getElementById('editEmp').style.display='none'" type="button">Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<script>
+											 empArry.length = 0;
+											 // push the local storage to an array
+											 for (i = 0; i < localStorage.length; i++){
+													 empArry.push(localStorage.key(i))
+											 }
+
+
+											 // loop through all the employees that were pushed to an array in the localStorage
+											 for(let y = 0; y <empArry.length; y++){
+											// if employee has a task add task to the task dropdown
+											 if('Task' in employee && employee.Task[y] != undefined ){
+												 // Loop through the employees task and add them for the first employee in the list
+												 for(let taskForEmp =0; taskForEmp < employee.Task.length; taskForEmp++){
+												 employee = JSON.parse(localStorage.getItem(empArry[y]));
+												 $('#editTaskDropDown').append("<option >" + employee.Task[taskForEmp]["Task Name"] + "</option>");
+
+												 }
+												 break;
+											 }
+									 }
+
+											// loop though the empArray and add the employees name to the employee dropdown
+											 for(j = 0; j < empArry.length; j++){
+												 employee = JSON.parse(localStorage.getItem(empArry[j]));
+												 if('Task' in employee && employee.Task.length != 0 ){
+													 $("#editEmpDropDown").append("<option >"+ employee["Employee Name"] +"</option>");
+												 }
+									 }
+									 employee = JSON.parse(localStorage.getItem($('#editEmpDropDown').val()));
+
+										$("#empColor").attr("value", employee["Employee Color"]);
+
+
+									 function populateEdit(){
+										 employee = JSON.parse(localStorage.getItem($('#editEmpDropDown').val()));
+
+											$("#empColor").attr("value", employee["Employee Color"]);
+											$(editTaskDropDown).empty();
+											for(let k = 0; k < employee.Task.length; k++){
+											employee = localStorage.getItem(document.getElementById("editEmpDropDown").value);
+											employee = JSON.parse(employee);
+											if('Task' in employee && employee.Task[k] != undefined ){
+
+												$('#editTaskDropDown').append("<option >" + employee.Task[k]["Task Name"] + "</option>");
+										}
+										}
+									}
+
+
+
+									</script>
+								</form>
+							</div>
+						</div><!-- end of Edit Employee div-->
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
