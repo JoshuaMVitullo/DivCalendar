@@ -213,6 +213,7 @@
 								 divCell.setAttribute("class", "dTableEmps employ");
 								 divCell.innerHTML += employee["Employee Name"];
 								 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
+
                  for (let j = 0; j < colCount; j++) {
 									 divCell = document.createElement("div");
 									 divCell.setAttribute("class", "dTableCell");
@@ -225,6 +226,38 @@
               	 y++;
                	}
 						  }
+							var noRows = 19 - localStorage.length;
+							alert(localStorage.length);
+
+							for(; noRows >= 0; noRows--){
+								 divRow = document.createElement("div");
+								 divRow.setAttribute("class", "dTableRow");
+								 divRow.id = "emp" + x + '-' + y;
+								 document.getElementById("Overall Table").appendChild(divRow);
+								 divCell = document.createElement("div");
+								 divCell.setAttribute("class", "dTableEmps employ");
+								 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
+
+
+
+									for (let l = 0; l < colCount; l++) {
+
+										 divCell = document.createElement("div");
+										 divCell = document.createElement("div");
+										 divCell.setAttribute("class", "dTableCell");
+										 divCell.id = z + '-' + y;
+										 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
+										 z++;
+
+									}
+									y++;
+
+
+
+
+
+
+							}
 						</script>
 					</div>
 						<div class="modal" id="addEmployee" >
