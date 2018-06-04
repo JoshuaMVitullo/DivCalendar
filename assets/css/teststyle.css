@@ -134,9 +134,13 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
   background: white;
 }
 
-.dTableRow {
+.dTableRow, .dTableHeader {
   display: table-row;
   border-style: solid;
+}
+
+.dTableHeader {
+  
 }
 
 .dTableCell, .dTableDates, .dTableEmps {
