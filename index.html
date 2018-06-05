@@ -69,11 +69,10 @@
 						 let colCount = 0;
 						 let empArry = [];
 
-				     /* Create the overall div container for the calendar */
-				     overDiv = document.createElement("div");
-				     overDiv.id = "Overall Table"
-				     overDiv.setAttribute("class", "dTable");
-				     document.getElementById("mainDiv").appendChild(overDiv);
+						 divCell = document.createElement("div");
+						 divCell.id += "Employee Name Cell";
+						 divCell.setAttribute("class", "dFirstCell");
+						 document.getElementById("mainDiv").appendChild(divCell);
 
 						 /* Get today's date */
 					   let today = new Date();
@@ -141,12 +140,14 @@
 				     divRowHead = document.createElement("div");
 				     divRowHead.id = "Date Row";
 				     divRowHead.setAttribute("class", "dTableHeader");
-				     divRowHead.innerHTML += "Employee Name";
-				     document.getElementsByClassName("dTable")[0].appendChild(divRowHead);
+				     document.getElementById("mainDiv").appendChild(divRowHead);
+						 divHead = document.createElement("div");
+						 divHead.setAttribute("class", "dTableDates")
+						 divHead.innerHTML += "Employee Name";
+						 document.getElementById("Date Row").appendChild(divHead);
 
 				     /* Add date divs to the header */
-				     for(let i = startDate; i <= endDate +1; i++) {
-				       divHead = document.createElement("div");
+				     for(let i = startDate; i <= endDate + 1; i++) {
 				       numStr = (i.toString()).substr(4,2);
                numStrDay = (i.toString()).substr(6,2);
                if(numStr == '09' || numStr == '04' || numStr == '06' || numStr == '11') {
@@ -154,6 +155,7 @@
                  	i += 69;
                	}
               	else {
+									divHead = document.createElement("div");
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
@@ -167,6 +169,7 @@
                 	i += 68;
               	}
               	else {
+									divHead = document.createElement("div");
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
@@ -180,6 +183,7 @@
                 	i += 71;
               	}
               	else {
+									divHead = document.createElement("div");
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
@@ -188,19 +192,21 @@
                 	colCount++;
               	}
               }
-              else {
-              	finalDay = i.toString()
-              	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
-								divHead.setAttribute("class", "dTableDates days")
-								divHead.id = x + '-' + y;
-								divHead.innerHTML += finalDayF;
-              	colCount++;
-              }
               	x++;
 								document.getElementById("Date Row").appendChild(divHead);
 							}
 
+				     /* Create the overall div container for the calendar */
+				     overDiv = document.createElement("div");
+				     overDiv.id = "Overall Table"
+				     overDiv.setAttribute("class", "dTable");
+				     document.getElementById("mainDiv").appendChild(overDiv);
+
 				     /* Create the following rows with the employee names and empty cells for tasks */
+						 divFirstCol = document.createElement("div");
+						 divFirstCol.setAttribute("class", "divFirstCol");
+						 divFirstCol.id = "Employee Column";
+						 document.getElementById("mainDiv").appendChild(divFirstCol);
 				     for(var key in localStorage) {
 				       divRow = document.createElement("div");
 							 typeofKey = (typeof localStorage[key]);
@@ -227,7 +233,6 @@
                	}
 						  }
 							var noRows = 19 - localStorage.length;
-							alert(localStorage.length);
 
 							for(; noRows >= 0; noRows--){
 								 divRow = document.createElement("div");
@@ -238,25 +243,15 @@
 								 divCell.setAttribute("class", "dTableEmps employ");
 								 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
 
-
-
 									for (let l = 0; l < colCount; l++) {
-
 										 divCell = document.createElement("div");
 										 divCell = document.createElement("div");
 										 divCell.setAttribute("class", "dTableCell");
 										 divCell.id = z + '-' + y;
 										 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
 										 z++;
-
 									}
 									y++;
-
-
-
-
-
-
 							}
 						</script>
 					</div>

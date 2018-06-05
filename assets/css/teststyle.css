@@ -1,72 +1,7 @@
-table {
-  /* border: 0.0625em solid black; */
-  table-layout: fixed;
-  position: relative;
-  width: auto;
-  overflow: hidden;
-  border-collapse: collapse;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-}
-
 html, body{
   height: 100%;
   width: 100%;
   background: linear-gradient(45deg, black, #9e2787);
-}
-
-/*thead*/
-thead {
-  position: relative;
-  display: block; /*seperates the header from the body allowing it to be positioned*/
-  width: 1535px;
-  overflow: visible;
-  /* border: 1px solid black; */
-}
-
-td, th {
-    padding: 0.75em 1.5em;
-    text-align: left;
-}
-
-thead th {
-  min-width: 140px;
-  max-width: 140px;
-  height: 35px;
-  text-align: center;
-}
-
-thead th:nth-child(1) { /*first cell in the header*/
-    position: relative;
-    display: float;
-    min-width: 140px;
-    background-color: black;
-    color: #9e2787;
-}
-
-/*tbody*/
-tbody {
-  position: relative;
-  display: block; /*seperates the tbody from the header*/
-  width: 1535px;
-  height: 475px;
-  overflow: scroll;
-}
-
-tbody td {
-  background-color: white;
-  min-width: 140px;
-  max-width: 140px;
-  border: 1px solid #474747;
-  white-space: nowrap
-}
-
-tbody tr td:nth-child(1) {  /*the first cell in each tr*/
-  position: relative;
-  /*display: block; seperates the first column from the tbody*/
-  border-left: 1px solid black;
-  height: 60px;
-  min-width: 140px;
-  max-width: 140px;
 }
 
 .dragscroll {
@@ -134,27 +69,50 @@ tbody tr td:nth-child(1) {  /*the first cell in each tr*/
   background: white;
 }
 
-.dTableRow, .dTableHeader {
+.dTableRow {
   display: table-row;
   border-style: solid;
 }
 
-.dTableHeader {
-  
+.dTableEmps {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  z-index: 1;
+  min-width: 140px;
+  max-width: 140px;
+  height: 40px;
+  border: 1px solid #999999;
+  white-space: nowrap;
 }
 
-.dTableCell, .dTableDates, .dTableEmps {
+.dFirstCell {
+  position: absolute;
+  display: block;
+  border-style: solid;
+  z-index: 1;
+  min-width: 140px;
+  max-width: 140px;
+  height: 40px;
+  border: 1px solid #999999;
+  white-space: nowrap;
+}
+
+.dTableCell, .dTableDates {
   	display: table-cell;
     min-width: 140px;
     max-width: 140px;
     height: 40px;
   	border: 1px solid #999999;
-    white-space: nowrap
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.dragscroll {
-  overflow-y: hidden;
-  margin-right: 0;
-  height: 600px;
-  border: 1px solid black;
+.dTableHeader {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  z-index: 2 !important;
 }
