@@ -58,11 +58,11 @@
 						<div id="mainDiv" class="dragscroll">
 						<script>
 				     /* Necessary variables */
-				     let overDiv = null;     // Overall Calendar Container
-				     let divRowHead = null   // Header row for dates
-				     let divRow = null;      // Div for each row
-				     let divHead = null;     // Div for each date in the header
-				     let divCell = null;     // Div for each table cell
+				     let overDiv;     // Overall Calendar Container
+				     let divRowHead;   // Header row for dates
+				     let divRow;      // Div for each row
+				     let divHead;     // Div for each date in the header
+				     let divCell;     // Div for each table cell
 						 let x = 1;
 	           let y = 0;
 						 let z = 1;
@@ -134,17 +134,16 @@
 	             	 }
 	           	 }
 					 	 }
-						 console.log(startDate + "->" + endDate);
 
 				     /* Create the first row to hold the dates */
 				     divRowHead = document.createElement("div");
-				     divRowHead.id = "Date Row";
+				     divRowHead.id = "DateRow";
 				     divRowHead.setAttribute("class", "dTableHeader");
 				     document.getElementById("mainDiv").appendChild(divRowHead);
 						 divHead = document.createElement("div");
 						 divHead.setAttribute("class", "dTableDates")
 						 divHead.innerHTML += "Employee Name";
-						 document.getElementById("Date Row").appendChild(divHead);
+						 document.getElementById("DateRow").appendChild(divHead);
 
 				     /* Add date divs to the header */
 				     for(let i = startDate; i <= endDate + 1; i++) {
@@ -159,7 +158,7 @@
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
-									divHead.id = x + '-' + y;endDate
+									//divHead.id = x + '-' + y;
                 	divHead.innerHTML += finalDayF;
                 	colCount++;
               	}
@@ -173,7 +172,7 @@
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
-									divHead.id = x + '-' + y;
+									//divHead.id = x + '-' + y;
                 	divHead.innerHTML += finalDayF;
                 	colCount++;
               	}
@@ -187,13 +186,13 @@
                 	finalDay = i.toString()
                 	finalDayF = (finalDay.substr(0,4)) + "-" + (finalDay.substr(4,2)) + "-" + (finalDay.substr(6,2));
 									divHead.setAttribute("class", "dTableDates days")
-									divHead.id = x + '-' + y;
+									//divHead.id = x + '-' + y;
                 	divHead.innerHTML += finalDayF;
                 	colCount++;
               	}
               }
               	x++;
-								document.getElementById("Date Row").appendChild(divHead);
+								document.getElementById("DateRow").appendChild(divHead);
 							}
 
 				     /* Create the overall div container for the calendar */
@@ -204,13 +203,26 @@
 
 				     /* Create the following rows with the employee names and empty cells for tasks */
 						 divFirstCol = document.createElement("div");
-						 divFirstCol.setAttribute("class", "divFirstCol");
+						 divFirstCol.setAttribute("class", "dFirstCell");
 						 divFirstCol.id = "Employee Column";
+						 divFirstCol.innerHTML += "Employee Names";
 						 document.getElementById("mainDiv").appendChild(divFirstCol);
+
+						 /* Top row under dates row to line everything up */
+						 divRow = document.createElement("div");
+						 divRow.setAttribute("class", "dTableRow");
+						 divRow.id = "Empty Header Row";
+						 document.getElementById("Overall Table").appendChild(divRow);
+						 divCell = document.createElement("div");
+						 divCell.setAttribute("class", "dTableEmps");
+						 document.getElementById("Empty Header Row").appendChild(divCell);
+
+						 /* Employee Name cells and empty cells to create table */
 				     for(var key in localStorage) {
+							 x = 0;
 				       divRow = document.createElement("div");
 							 typeofKey = (typeof localStorage[key]);
-               if(typeofKey == 'string' || typeofKey instanceof String ) {
+               if(typeofKey == 'string' || typeofKey instanceof String) {
                  employee = JSON.parse(localStorage.getItem(key));
 								 divRow.setAttribute("class", "dTableRow");
 								 divRow.id = "emp" + x + '-' + y;
@@ -218,6 +230,7 @@
 								 divCell = document.createElement("div");
 								 divCell.setAttribute("class", "dTableEmps employ");
 								 divCell.innerHTML += employee["Employee Name"];
+								 divCell.id = "emp-" + y;
 								 document.getElementById("emp" + x + '-' + y).appendChild(divCell);
 
                  for (let j = 0; j < colCount; j++) {
@@ -228,12 +241,10 @@
                    z++;
                  }
                  z=1;
-                 x=0;
               	 y++;
                	}
 						  }
 							var noRows = 19 - localStorage.length;
-
 							for(; noRows >= 0; noRows--){
 								 divRow = document.createElement("div");
 								 divRow.setAttribute("class", "dTableRow");
@@ -252,7 +263,7 @@
 										 z++;
 									}
 									y++;
-							}
+								}
 						</script>
 					</div>
 						<div class="modal" id="addEmployee" >

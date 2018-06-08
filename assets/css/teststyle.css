@@ -72,6 +72,7 @@ html, body{
 .dTableRow {
   display: table-row;
   border-style: solid;
+  height: 40px;
 }
 
 .dTableEmps {
@@ -91,12 +92,17 @@ html, body{
   position: absolute;
   display: block;
   border-style: solid;
-  z-index: 1;
+  z-index: 3 !important;
   min-width: 140px;
   max-width: 140px;
   height: 40px;
   border: 1px solid #999999;
   white-space: nowrap;
+  background-color: black;
+  color: white;
+  text-align: center;
+  left: 244px;
+  top: 67px;
 }
 
 .dTableCell, .dTableDates {
@@ -112,7 +118,17 @@ html, body{
 .dTableHeader {
   position: absolute;
   display: block;
-  overflow: hidden;
+  overflow: visible;
   border-style: solid;
   z-index: 2 !important;
+}
+
+.dTask {
+  position: absolute;
+  background-color: yellow;
+  height: 20px;
+  left: 244px;
+  top: 67px;
+  z-index: 0 !important;
+  overflow: hidden;
 }

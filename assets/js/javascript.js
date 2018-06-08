@@ -7,6 +7,8 @@ $(document).ready(function() {
     $('.dTableHeader').css("left", 240-$("#mainDiv").scrollLeft()); //fix the thead relative to the body scrolling
     $('#EmpName').css("left", $("#mainDiv").scrollLeft()); //fix the first cell of the header
     $('.dTableEmps').css("left", $("#mainDiv").scrollLeft()); //fix the first column of tdbody
+    // $('.dTask').css("left", $("#mainDiv").scrollLeft());
+    // $('.dTask').css("top", $("#mainDiv").scrollTop());
   });
 });
 
