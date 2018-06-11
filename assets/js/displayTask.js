@@ -38,6 +38,7 @@ function displayTask(inputArry) {
   document.getElementById(inputArry[0].empRow).appendChild(inputArry[0].taskDiv);
 
   for(let i = 1; i < inputArry.length; i++) {
+    console.log(inputArry[i].taskDiv.innerHTML);
     for(let j = 0; j < i; j++) {
       /* If a task starts and ends on the same date for the same employee */
       /* [============]
@@ -47,6 +48,7 @@ function displayTask(inputArry) {
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         //divHeight += heightOffset;
+        console.log("1");
       }
 
       /* offset */
@@ -56,6 +58,7 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("2");
       }
 
       /* offset */
@@ -65,6 +68,7 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("3");
       }
 
       /* offset */
@@ -74,6 +78,7 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("4");
       }
 
       /* offset */
@@ -83,6 +88,7 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("5");
       }
 
       /* offset */
@@ -92,6 +98,7 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("6");
       }
 
       /* offset */
@@ -101,11 +108,23 @@ function displayTask(inputArry) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
+        console.log("7");
+      }
+
+      /* offset */
+      /*    [============]
+        [===================] */
+      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].end) {
+        countTemp += 1;
+        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+        divHeight += 22;  // 22px below the div above
+        console.log("8");
       }
 
       /* If the new tast doesn't overlap any previous tasks */
-      else if(countTemp == 0) {
+      else {
         divHeight = parseInt(inputArry[0].taskDiv.style.top, 10);
+        console.log("9");
       }
 
       inputArry[i].taskDiv.style.top = divHeight + "px";
@@ -180,6 +199,23 @@ $(document).ready(function() {
         divTask.style.backgroundColor = employee["Employee Color"];
         divTask.innerHTML += employee.Task[taskIndex]["Task Name"];
         divTask.id = "Task Bar";
+
+        /* Change color of text of the div text */
+        var rgb = employee["Employee Color"];
+        var colr;
+        if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(rgb)) {
+          colr = rgb.substring(1).split('');
+          if (colr.length == 3) {
+            colr = [colr[0], colr[0], colr[1], colr[1], colr[2], colr[2]];
+          }
+          colr = '0x' + colr.join('');
+          var rgb = [(colr >> 16) & 255, (colr >> 8) & 255, colr & 255].join(',') + ',1'
+        }
+        bgroundColor = Math.round(((parseInt(rgb[0]) * 299) +
+        (parseInt(rgb[1]) * 587) +
+        (parseInt(rgb[2]) * 114)) / 2);
+        var newTextColor = (bgroundColor > 125) ? 'black' : 'white';
+        divTask.style.color = newTextColor;
 
         /* Save and push to task info array for position checking */
         empTask = new taskInfo(divTask, "emp0-" + i, "emp-" + i, startIndex, endIndex, taskHeight, taskLength);
