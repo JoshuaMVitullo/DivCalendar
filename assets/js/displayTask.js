@@ -37,24 +37,31 @@ function displayTask(inputArry) {
 
   for(let i = 1; i < inputArry.length; i++) {
     console.log(inputArry[i].taskDiv.innerHTML);
+    // divHeight = parseInt(inputArry[0].taskDiv.style.top, 10);
     for(let j = 0; j < i; j++) {
+      if(j == 0) {
+        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+      }
+      else if(parseInt(inputArry[j].taskDiv.style.top, 10) <= parseInt(inputArry[j-1].taskDiv.style.top, 10)) {
+        continue;
+      }
+
       /* If a task starts and ends on the same date for the same employee */
       /* [============]
          [============] */
-      if((inputArry[i].start == inputArry[j].start && inputArry[i].end == inputArry[j].end) && (i != j)) {
+      if((inputArry[i].start == inputArry[j].start && inputArry[i].end == inputArry[j].end)
+         && (i != j)) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
-        //divHeight += heightOffset;
         console.log("1");
       }
 
       /* offset */
       /* [===============]
                  [===================] */
-      else if(inputArry[i].start > inputArry[j].start && inputArry[i].start < inputArry[j].end && inputArry[i].end > inputArry[j].end) {
+      else if(inputArry[i].start > inputArry[j].start && inputArry[i].start < inputArry[j].end
+              && inputArry[i].end > inputArry[j].end && parseInt(inputArry[i].taskDiv.style.top, 10) == parseInt(inputArry[j].taskDiv.style.top, 10)) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("2");
       }
@@ -62,9 +69,9 @@ function displayTask(inputArry) {
       /* offset */
       /*          [============]
             [============] */
-      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].start && inputArry[i].end < inputArry[j].end) {
+      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].start
+              && inputArry[i].end < inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("3");
       }
@@ -74,7 +81,6 @@ function displayTask(inputArry) {
             [============] */
       else if(inputArry[i].start > inputArry[j].start && inputArry[i].end < inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("4");
       }
@@ -84,7 +90,6 @@ function displayTask(inputArry) {
                   [=========] */
       else if(inputArry[i].start > inputArry[j].start && inputArry[i].end == inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("5");
       }
@@ -94,7 +99,6 @@ function displayTask(inputArry) {
             [=======] */
       else if(inputArry[i].start == inputArry[j].start && inputArry[i].end < inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("6");
       }
@@ -104,7 +108,6 @@ function displayTask(inputArry) {
                          [=======] */
       else if(inputArry[i].start > inputArry[j].start && inputArry[i].start == inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("7");
       }
@@ -114,7 +117,6 @@ function displayTask(inputArry) {
       [=====] */
       else if(inputArry[i].start < inputArry[j].start && inputArry[i].end == inputArry[j].start) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("8");
       }
@@ -124,22 +126,25 @@ function displayTask(inputArry) {
         [===================] */
       else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].end) {
         countTemp += 1;
-        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("9");
       }
 
       /* If the new tast doesn't overlap any previous tasks */
-      else {
-        if(parseInt(inputArry[j].taskDiv.style.top, 10) <= divHeight) {
-          divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
-          console.log("10");
-        }
-        else if (inputArry[i].height == inputArry[j].height) {
-          divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
-          console.log("11");
-        }
+      else if(parseInt(inputArry[j].taskDiv.style.top, 10) <= divHeight) {
+        console.log("10");
+        inputArry[i].taskDiv.style.top = divHeight + "px";
+        document.getElementById(inputArry[i].empRow).appendChild(inputArry[i].taskDiv);
+        /* To find the max amount of stacks for height to fit all on row */
+        if(countTemp > stackCount) { stackCount = countTemp; }
+        break;
       }
+
+      // else {
+      //   divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+      //   divHeight += 22;
+      //   console.log("11");
+      // }
 
       inputArry[i].taskDiv.style.top = divHeight + "px";
       document.getElementById(inputArry[i].empRow).appendChild(inputArry[i].taskDiv);
