@@ -27,9 +27,7 @@ function displayTask(inputArry) {
   let lastRow = [];
 
   /* If employee doesn't have any tasks, end */
-  if(inputArry.length == 0) {
-    return 0;
-  }
+  if(inputArry.length == 0) { return 0; }
 
   /* always print first task... first */
   divHeight = parseInt(inputArry[0].taskDiv.style.top, 10);
@@ -54,7 +52,7 @@ function displayTask(inputArry) {
       /* offset */
       /* [===============]
                  [===================] */
-      else if(inputArry[i].start > inputArry[j].start && inputArry[i].start < inputArry[j].end) {
+      else if(inputArry[i].start > inputArry[j].start && inputArry[i].start < inputArry[j].end && inputArry[i].end > inputArry[j].end) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
@@ -135,8 +133,12 @@ function displayTask(inputArry) {
       else {
         if(parseInt(inputArry[j].taskDiv.style.top, 10) <= divHeight) {
           divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+          console.log("10");
         }
-        console.log("10");
+        else if (inputArry[i].height == inputArry[j].height) {
+          divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+          console.log("11");
+        }
       }
 
       inputArry[i].taskDiv.style.top = divHeight + "px";
