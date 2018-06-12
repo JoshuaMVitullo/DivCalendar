@@ -13,11 +13,11 @@ function taskInfo(taskDiv, empRow, empName, start, end, height, length) {
 }
 
 /* Sort task array by length of each task */
-// function compare(a, b) {
-//   if(a.length < b.length) { return 1; }
-//   if(a.length > b.length) { return -1;}
-//   return 0;
-// }
+function compare(a, b) {
+  if(parseInt(a.length, 10) < parseInt(b.length, 10)) { return 1;}
+  if(parseInt(a.length, 10) > parseInt(b.length, 10)) { return -1;}
+  return 0;
+}
 
 function displayTask(inputArry) {
   let divHeight = 0;
@@ -64,7 +64,7 @@ function displayTask(inputArry) {
       /* offset */
       /*          [============]
             [============] */
-      else if(inputArry[i].end > inputArry[j].start && inputArry[i].end < inputArry[j].end) {
+      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].start && inputArry[i].end < inputArry[j].end) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
@@ -113,18 +113,30 @@ function displayTask(inputArry) {
 
       /* offset */
       /*    [============]
-        [===================] */
-      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].end) {
+      [=====] */
+      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end == inputArry[j].start) {
         countTemp += 1;
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
         divHeight += 22;  // 22px below the div above
         console.log("8");
       }
 
+      /* offset */
+      /*    [============]
+        [===================] */
+      else if(inputArry[i].start < inputArry[j].start && inputArry[i].end > inputArry[j].end) {
+        countTemp += 1;
+        divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+        divHeight += 22;  // 22px below the div above
+        console.log("9");
+      }
+
       /* If the new tast doesn't overlap any previous tasks */
       else {
-        divHeight = parseInt(inputArry[0].taskDiv.style.top, 10);
-        console.log("9");
+        if(parseInt(inputArry[j].taskDiv.style.top, 10) <= divHeight) {
+          divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
+        }
+        console.log("10");
       }
 
       inputArry[i].taskDiv.style.top = divHeight + "px";
@@ -222,7 +234,7 @@ $(document).ready(function() {
         empTaskArry.push(empTask);
         //document.getElementById("emp0-" + i).appendChild(divTask);
       }
-      //empTaskArry.sort(compare)
+      empTaskArry.sort(compare)
       displayTask(empTaskArry);
       empTaskArry = [];
     }

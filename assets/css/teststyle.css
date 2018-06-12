@@ -111,6 +111,7 @@ html, body{
     max-width: 140px;
     height: 40px;
   	border: 1px solid #999999;
+    /* border: collapse; */
     white-space: nowrap;
     overflow: hidden;
 }
