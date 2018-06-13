@@ -37,11 +37,11 @@ function displayTask(inputArry) {
 
   for(let i = 1; i < inputArry.length; i++) {
     console.log(inputArry[i].taskDiv.innerHTML);
-    // divHeight = parseInt(inputArry[0].taskDiv.style.top, 10);
     for(let j = 0; j < i; j++) {
       if(j == 0) {
         divHeight = parseInt(inputArry[j].taskDiv.style.top, 10);
       }
+      /* Skip tasks that are above current task */
       else if(parseInt(inputArry[j].taskDiv.style.top, 10) <= parseInt(inputArry[j-1].taskDiv.style.top, 10)) {
         continue;
       }
@@ -60,7 +60,7 @@ function displayTask(inputArry) {
       /* [===============]
                  [===================] */
       else if(inputArry[i].start > inputArry[j].start && inputArry[i].start < inputArry[j].end
-              && inputArry[i].end > inputArry[j].end && parseInt(inputArry[i].taskDiv.style.top, 10) == parseInt(inputArry[j].taskDiv.style.top, 10)) {
+              && inputArry[i].end > inputArry[j].end) {
         countTemp += 1;
         divHeight += 22;  // 22px below the div above
         console.log("2");
